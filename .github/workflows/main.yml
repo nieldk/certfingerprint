@@ -1,0 +1,27 @@
+name: Build and Release cert_fingerprint
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-linux:
+    name: Build on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y gcc libssl-dev
+
+      - name: Build cert_fingerprint
+        run: gcc -o cert_fingerprint cert_fingerprint.c -lssl -lcrypto
+
+      - name: Upload release binary
+        uses: softprops/action-gh-release@v2
+        with:
+          files: cert_fingerprint
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
