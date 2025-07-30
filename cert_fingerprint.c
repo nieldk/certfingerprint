@@ -11,10 +11,10 @@ void print_sha256_fingerprint(X509 *cert) {
 
     if (!X509_digest(cert, EVP_sha256(), md, &n)) {
         fprintf(stderr, "Error calculating SHA256 digest\n");
+        ERR_print_errors_fp(stderr);
         return;
     }
 
-    // Print as lowercase hex string without colons
     for (unsigned int i = 0; i < n; i++) {
         printf("%02x", md[i]);
     }
@@ -34,9 +34,8 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    // Optional for OpenSSL 1.1 — safe to call; ignored in 3.x
     OpenSSL_add_all_algorithms();
-    ERR_load_BIO_strings();
-    ERR_load_crypto_strings();
 
     X509 *cert = PEM_read_X509(fp, NULL, NULL, NULL);
     fclose(fp);
