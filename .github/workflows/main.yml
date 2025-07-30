@@ -6,6 +6,7 @@ on:
 
 jobs:
   build-linux:
+  permissions: write-all
     name: Build on Ubuntu
     runs-on: ubuntu-latest
 
