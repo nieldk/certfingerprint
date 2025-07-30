@@ -16,7 +16,7 @@ jobs:
         run: sudo apt update && sudo apt install -y gcc libssl-dev
 
       - name: Build Binary
-        run: gcc -o cert_fingerprint-linux cert_fingerprint.c -lssl -lcrypto
+        run: gcc -x -o cert_fingerprint-linux cert_fingerprint.c -lssl -lcrypto
 
       - name: Upload Ubuntu Binary
         uses: softprops/action-gh-release@v2
@@ -38,7 +38,7 @@ jobs:
           apk add --no-cache build-base openssl-dev git
           git clone $GITHUB_SERVER_URL/$GITHUB_REPOSITORY repo
           cd repo
-          gcc -o cert_fingerprint-alpine cert_fingerprint.c -lssl -lcrypto
+          gcc -x -o cert_fingerprint-alpine cert_fingerprint.c -lssl -lcrypto
           mv cert_fingerprint-alpine /tmp/
 
       - name: Upload Alpine Binary
