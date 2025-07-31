@@ -19,3 +19,9 @@ jobs:
       run: ./configure
     - name: make
       run: make
+    - name: Upload binary to GitHub release
+      uses: softprops/action-gh-release@v2
+      with:
+         files: cert_fingerprint
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
