@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "This project uses a simple Makefile. Run: make"
+exit 0
